@@ -8,14 +8,33 @@
 import SwiftUI
 
 struct ContentView: View {
+    @State private var temperature = 0
+    
+    var toFarenheit: Int {
+        let tempChange = ((temperature * 9) / 5) + 32
+        
+        return tempChange
+    }
+    
     var body: some View {
-        VStack {
-            Image(systemName: "globe")
-                .imageScale(.large)
-                .foregroundColor(.accentColor)
-            Text("Hello, world!")
+        NavigationView {
+            Form {
+                Section {
+                    TextField("Temperature (°C)", value: $temperature, format: .number)
+
+                } header: {
+                    Text("Insert temperature in °C")
+                }
+                
+                Section {
+                    Text(toFarenheit, format: .number)
+                } header: {
+                    Text("Here's your temperature converted in °F")
+                }
+                
+            }
+            .navigationTitle("TempChanger")
         }
-        .padding()
     }
 }
 
